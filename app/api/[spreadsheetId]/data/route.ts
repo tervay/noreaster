@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { GoogleSpreadsheet } from "google-spreadsheet";
 import { JWT } from "google-auth-library";
-import credentials from "@/app/credentials.json";
 import { SheetAllianceInfo, SheetMatchInfo } from "@/app/types";
 
 export async function GET(
@@ -16,8 +15,8 @@ export async function GET(
   ];
 
   const jwt = new JWT({
-    email: credentials.client_email,
-    key: credentials.private_key,
+    email: process.env.CLIENT_EMAIL,
+    key: process.env.PRIVATE_KEY,
     scopes: SCOPES,
   });
   const doc = new GoogleSpreadsheet(spreadsheetId, jwt);
